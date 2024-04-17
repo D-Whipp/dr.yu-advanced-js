@@ -8,12 +8,15 @@ for (let i = 0; i < numberOfDrumButtons; i++) {
             let buttonInnerHTML = this.innerHTML;
 
             makeSound(buttonInnerHTML);
+
+            buttonAnimation(buttonInnerHTML);
         });
 }
 
 // Detecting Keyboard Press
 document.addEventListener('keydown', function (event) {
     makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 function makeSound(key) {
@@ -58,13 +61,35 @@ function makeSound(key) {
     }
 }
 
-// let audio = new Audio('./sounds/crash.mp3');
-// console.log('Audio: ', audio);
-// audio.play();
+function buttonAnimation(currentKey) {
+    let activeButton = document.querySelector('.' + currentKey);
+    activeButton.classList.add('pressed');
+    setTimeout(function () {
+        activeButton.classList.remove('pressed');
+    }, 100);
+}
 
-// completed challenge
-// document.querySelector('.set').addEventListener('click', handleClick);
+// Higher Order Function vs. Callback Function example:
+// let h1 = document.getElementById('title');
+// h1.addEventListener('click', function (event) {
+//     console.log(event);
+// });
+// the callback in ^this^ instance is the anonymous function
 
-// function handleClick() {
-//     alert('I got clicked');
+// Below is the in depth example of a Higher Order Function with a Callback Function
+// function anotherAddEventListener(typeOfEvent, callback) {
+//  Detect Event Code...
+//     let eventThatHappened = {
+//         eventType: 'keypress',
+//         key: 'p',
+//         durationOfKeypress: 2,
+//     };
+
+//     if (eventThatHappened.eventType === typeOfEvent) {
+//         callback(eventThatHappened);
+//     }
 // }
+
+// anotherAddEventListener('keypress', function (event) {
+//     console.log(event);
+// });
